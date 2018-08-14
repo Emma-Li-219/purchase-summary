@@ -12,25 +12,27 @@ import { connect } from 'react-redux';
 import { handleChange } from './actions/promoCodeActions';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      total: 100.0,
-      taxes: 0,
-      pickupSavings: -3.85,
-      estimatedTotal: 0,
-      disablePromoButton: false
-    };
+  state = {
+    total: 102.96,
+    taxes: 0,
+    pickupSavings: -3.85,
+    estimatedTotal: 0,
+    oldprice: 0,
+    disablePromoButton: false,
+    zipCode: 94085,
+    taxRate: 0.09,
+    imgURL:'https://i5.walmartimages.com/asr/e73e1252-642c-4473-93ea-fd3b564a7027_1.3e81ea58fa3042452fe185129a4a865f.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff'
   }
 
   componentDidMount = () => {
     this.setState(
-      { taxes: (this.state.total + this.state.pickupSavings) * 0.0875 },
+      { taxes: (this.state.total + this.state.pickupSavings) * this.state.taxRate },
       function() {
         this.setState({
           estimatedTotal:
-            this.state.total + this.state.pickupSavings + this.state.taxes
+            this.state.total + this.state.pickupSavings + this.state.taxes,
+          oldprice:
+            this.state.total + this.state.pickupSavings + this.state.taxes,
         });
       }
     );
@@ -55,10 +57,15 @@ class App extends Component {
         <div className="purchase-card">
           <SubTotal price={this.state.total.toFixed(2)} />
           <PickupSavings price={this.state.pickupSavings} />
-          <TaxesFees taxes={this.state.taxes.toFixed(2)} />
+          <TaxesFees taxes={this.state.taxes.toFixed(2)} 
+          zipCode={this.state.zipCode}/>
           <hr />
-          <EstimatedTotal price={this.state.estimatedTotal.toFixed(2)} />
-          <ItemDetails price={this.state.estimatedTotal.toFixed(2)} />
+          <EstimatedTotal 
+          price={this.state.estimatedTotal.toFixed(2)} />
+          <ItemDetails 
+          oldprice={this.state.oldprice.toFixed(2)}
+          price={this.state.estimatedTotal.toFixed(2)} 
+          imgURL={this.state.imgURL}/>
           <hr />
           <PromoCodeDiscount
             giveDiscount={() => this.giveDiscountHandler()}

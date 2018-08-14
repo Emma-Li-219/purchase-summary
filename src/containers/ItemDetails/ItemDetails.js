@@ -10,7 +10,7 @@ export default class ItemDetails extends Component {
       <div>
         <div className="title">
           <img
-            src="https://i5.walmartimages.com/asr/e73e1252-642c-4473-93ea-fd3b564a7027_1.3e81ea58fa3042452fe185129a4a865f.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff"
+            src={this.props.imgURL}
             alt="thumbnail"
           />
         </div>
@@ -22,7 +22,7 @@ export default class ItemDetails extends Component {
             <div className="title">
               <strong>{`$${this.props.price}`}</strong>
               <br />
-              <strong className="price-strike">{`$${this.props.price}`}</strong>
+              <strong className="price-strike">{`$${this.props.oldprice}`}</strong>
             </div>
             <div className="title__context">
               <strong>Qty: 1</strong>
